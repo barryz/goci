@@ -1,0 +1,6 @@
+build: go build
+test: "go test ./job"
+excludes:
+    - vendor
+lint:
+    ignore_no_comment_error: true

@@ -1,0 +1,10 @@
+build: make build
+test: make test
+no_commonts: false
+race:
+    main: hehe/main.go
+    script: ./ab.sh
+    timeout: 20
+pkgs:
+    - ./hehe/...
+    - ./haha/...
