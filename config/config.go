@@ -5,27 +5,32 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"math"
 	"os"
-	"regexp"
-	"strconv"
 	"strings"
 
 	"gopkg.in/yaml.v2"
+)
+
+const (
+	defaultBuildCommand = "go build ."
+	defaultTestCommand  = "go test ."
+)
+
+var (
+	defaultExcludes = []string{"vendor"}
 )
 
 type Config struct {
 	Build string `yaml:"build"`
 	Test  string `yaml:"test"`
 	// same as Pkgs
-	Dirs      []string `yaml:"dirs"`
-	Pkgs      []string `yaml:"pkgs"`
-	Race      *Race    `yaml:"race"`
-	Lint      *Lint    `yaml:"lint"`
-	Excludes  []string `yaml:"excludes"`
-	realPkgs  []string
-	Skips     []string `yaml:"skips"`
-	GithubAPI string   `yaml:"github_api"`
+	Dirs     []string `yaml:"dirs"`
+	Pkgs     []string `yaml:"pkgs"`
+	Race     *Race    `yaml:"race"`
+	Lint     *Lint    `yaml:"lint"`
+	Excludes []string `yaml:"excludes"`
+	realPkgs []string
+	Skips    []string `yaml:"skips"`
 }
 
 type Lint struct {
@@ -38,10 +43,6 @@ type Race struct {
 	Script  string `yaml:"script"`
 	Timeout int    `yaml:"timeout"`
 }
-
-var (
-	defaultExcludes = []string{"vendor", "Godeps"}
-)
 
 func (c *Config) RealPkgs() []string {
 	if c.realPkgs == nil {
@@ -119,6 +120,7 @@ var (
 	DefaultConfig *Config
 )
 
+// InitConfig initialize config by config file
 func InitConfig(filename string) error {
 	f, err := os.Open(filename)
 	if err != nil {
@@ -153,36 +155,16 @@ func InitConfig(filename string) error {
 	return nil
 }
 
-var (
-	CoverRegex   = regexp.MustCompile("(>|<|>=|<=)([\\d\\.]+|last)%?")
-	availableOps = []string{">", "<", ">=", "<="}
-	PercentLast  = -1
-)
+// InitDefaultConfig initialize default configuration
+func InitDefaultConfig() error {
+	cfg := new(Config)
 
-func ParseCoverage(coverage string) (op string, percent int, err error) {
-	strs := CoverRegex.FindSubmatch([]byte(coverage))
-	if len(strs) != 3 {
-		return "", 0, fmt.Errorf("coverage config syntax error")
-	}
-	if string(strs[2]) == "last" {
-		percent = PercentLast
-	} else {
-		fPercent, err := strconv.ParseFloat(string(strs[2]), 64)
-		if err != nil {
-			return "", 0, fmt.Errorf("coverage config syntax error: %v", err)
-		}
-		percent = int(math.Floor(fPercent * 100))
-	}
-	op = string(strs[1])
-	ok := false
-	for _, ao := range availableOps {
-		if op == ao {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return "", 0, fmt.Errorf("coverage config syntax error")
-	}
-	return
+	cfg.Build = defaultBuildCommand
+	cfg.Test = defaultTestCommand
+	cfg.Excludes = defaultExcludes
+	cfg.Lint = &Lint{IgnoreNoCommentError: true}
+
+	DefaultConfig = cfg
+
+	return nil
 }

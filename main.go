@@ -16,29 +16,34 @@ var (
 
 	// Build information
 	Build = ""
+
+	cfg *config.Config
 )
 
 func init() {
 	flag.Parse()
 }
+
 func main() {
 	if *showBuild {
 		fmt.Printf("Build Info: %s\n", Build)
 		os.Exit(0)
 	}
 
-	if *configFile == "" {
-		flag.Usage()
-		os.Exit(1)
+	if *configFile != "" {
+		err := config.InitConfig(*configFile)
+		if err != nil {
+			fmt.Println("Config Error: ", err)
+			os.Exit(1)
+		}
+	} else {
+		if err := config.InitDefaultConfig(); err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
 	}
 
-	err := config.InitConfig(*configFile)
-	if err != nil {
-		fmt.Println("Config Error: ", err)
-		os.Exit(1)
-	}
-
-	cfg := config.DefaultConfig
+	cfg = config.DefaultConfig
 	jobs := []job.Job{}
 
 	cwd, _ := os.Getwd()

@@ -16,12 +16,14 @@ It supports:
 
 ## Installation
 ```
-go get -u github.com/barryz/goci
+$go get -u github.com/barryz/goci
 ```
 
 ## Run
 ```
-goci -c goci.yml
+$goci -c goci.yml
+or
+$goci # use default configurations
 ```
 
 ## Configuration

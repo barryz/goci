@@ -1,6 +1,6 @@
 NOW=$(shell date '+%Y-%m-%d_%H:%M:%S')
-REV?=$(shell git rev-parse --short HEAD)
-LDFLAGS=-ldflags '-X github.com/barryz/goci/main.Build=${NOW}@${REV} -w -s'
+REV?=$(shell git rev-parse HEAD)
+LDFLAGS=-ldflags '-X main.Build=${NOW}@${REV}'
 BINARY="goci"
 
 build:
