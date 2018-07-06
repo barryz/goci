@@ -1,6 +1,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/barryz/goci)](https://goreportcard.com/report/github.com/barryz/goci)
 ![GoCI](http://goci.ele.me/na/goci/eleme/goci/badge?type=job)
 [![Build Status](https://travis-ci.org/barryz/goci.svg?branch=master)](https://travis-ci.org/barryz/goci)
+[![Apache 2 licensed](https://img.shields.io/badge/license-Apache2-blue.svg)](https://raw.githubusercontent.com/oklog/run/master/LICENSE)
 
 **goci** is a command-line tool for checking the code quality of Go locally.
 
