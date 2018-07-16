@@ -8,6 +8,8 @@ import (
 	"github.com/barryz/goci/config"
 	"github.com/barryz/goci/job"
 	"github.com/barryz/goci/util"
+
+	"github.com/fatih/color"
 )
 
 var (
@@ -78,13 +80,17 @@ func main() {
 
 		msg, err := v.Do()
 		if err != nil {
+			color.Set(color.FgRed)
 			fmt.Printf("[failure] Job %s Error: %s\n", jobTypeName, err.Error())
+			color.Unset()
 			util.Carve("Job " + jobTypeName + " Finish")
 			if v.IsFailTerminate() {
 				break
 			}
 		} else {
+			color.Set(color.FgGreen)
 			fmt.Printf("[success] Job %s Success %s\n", jobTypeName, msg)
+			color.Unset()
 			util.Carve("Job " + jobTypeName + " Finish")
 		}
 	}

@@ -12,7 +12,7 @@ import (
 type GoLintJob string
 
 func (j GoLintJob) Do() (msg string, err error) {
-	fmt.Print("!!!! golint new config field \"lint -> ignore_no_comment_error\": https://github.com/barryz/goci#lint-结构字段\n\n")
+	// fmt.Print("!!!! golint new config field \"lint -> ignore_no_comment_error\": https://github.com/barryz/goci#lint-结构字段\n\n")
 
 	pkgs := config.DefaultConfig.RealPkgs()
 	noComments := config.DefaultConfig.Lint.IgnoreNoCommentError
