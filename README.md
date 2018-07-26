@@ -5,7 +5,9 @@
 
 **goci** is a command-line tool for checking the code quality of Go locally.
 
-[![asciicast](https://asciinema.org/a/BH0yCKR8ExEoQxLNYcBquDlUB.png)](https://asciinema.org/a/BH0yCKR8ExEoQxLNYcBquDlUB)
+<p align="center">
+	<img src="https://cdn.rawgit.com/barryz/goci/372bcccb/demonstration.svg">
+</p>
 
 It supports:
 
