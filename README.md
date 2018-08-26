@@ -18,6 +18,9 @@ It supports:
 - `test`   go test or unit test
 - `race`   race condition test
 
+## Requirements
+
+Go1.11 (modules support)
 
 ## Installation
 ```
