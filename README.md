@@ -20,7 +20,8 @@ It supports:
 
 ## Requirements
 
-Go1.11 (modules support)
+- Go1.10.x
+- Go1.11 (modules support)
 
 ## Installation
 ```
