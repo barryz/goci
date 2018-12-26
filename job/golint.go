@@ -9,8 +9,10 @@ import (
 	"github.com/barryz/goci/util"
 )
 
+// GoLintJob represents a job with go lint.
 type GoLintJob string
 
+// Do do an actual job.
 func (j GoLintJob) Do() (msg string, err error) {
 	// fmt.Print("!!!! golint new config field \"lint -> ignore_no_comment_error\": https://github.com/barryz/goci#lint-结构字段\n\n")
 
@@ -49,10 +51,12 @@ func (j GoLintJob) Do() (msg string, err error) {
 	return "", nil
 }
 
+// IsFailTerminate indicates whether to terminate when job execute fails.
 func (j GoLintJob) IsFailTerminate() bool {
 	return false
 }
 
+// Name returns the job name.
 func (j GoLintJob) Name() string {
 	return string(j)
 }

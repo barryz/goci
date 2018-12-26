@@ -9,8 +9,10 @@ import (
 	"github.com/barryz/goci/util"
 )
 
+// GoVetJob represents a job with go vet.
 type GoVetJob string
 
+// Do do an actual job.
 func (j GoVetJob) Do() (msg string, err error) {
 	pkgs := config.DefaultConfig.RealPkgs()
 	haveError := false
@@ -30,10 +32,12 @@ func (j GoVetJob) Do() (msg string, err error) {
 	return "", nil
 }
 
+// IsFailTerminate indicates whether to terminate when job execute fails.
 func (j GoVetJob) IsFailTerminate() bool {
 	return false
 }
 
+// Name returns the job name.
 func (j GoVetJob) Name() string {
 	return string(j)
 }

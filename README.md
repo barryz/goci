@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/barryz/goci.svg?branch=master)](https://travis-ci.org/barryz/goci)
 [![Apache 2 licensed](https://img.shields.io/badge/license-Apache2-blue.svg)](https://raw.githubusercontent.com/oklog/run/master/LICENSE)
 
-**goci** is a command-line tool for checking the code quality of Go locally.
+**goci** is a CI linter for Go(lang) source code.
 
 <p align="center">
 	<img src="https://cdn.rawgit.com/barryz/goci/372bcccb/demonstration.svg">
@@ -21,7 +21,7 @@ It supports:
 ## Requirements
 
 - Go1.10.x
-- Go1.11 (modules support)
+- Go1.11 (go module support)
 
 ## Installation
 ```
@@ -42,10 +42,10 @@ Create a file which named `goci.yml`. This file should include fields as below:
 |----------|--------|-------|
 | build    | string | Command or script that used for build project. Scripts should use the relative path. eg: ./ |
 | test     | string | Command for testing |
-| excludes | array  | The directories which in excludes will not be fmt, lint or ver |
+| excludes | array  | The directories which in excludes will not be `gofmt`, `golint` or `gover` |
 | race     | struct | Execute race condition testing |
-| lint     | struct | Configurations for golint |
-| skips    | array  | steps which to skipped |
+| lint     | struct | Configurations for `golint` |
+| skips    | array  | Steps which to skipped |
 
 
 
@@ -53,7 +53,7 @@ Create a file which named `goci.yml`. This file should include fields as below:
 
 | fields |  type | comment |
 |---------|--------|-------|
-| main    | string | entry-point file for project，eg：main.go |
+| main    | string | entry-point file for project, eg：main.go |
 | main_cmd | string | command for execution |
 | script  | string | test script eg: sh race_test.sh |
 | timeout | int    | timeout for race condition execution |

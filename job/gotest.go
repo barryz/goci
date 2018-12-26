@@ -15,18 +15,21 @@ var (
 	re = regexp.MustCompile("coverage: (.+?)%")
 )
 
+// GoTestJob represents a job with go unit testing.
 type GoTestJob struct {
 	name                string
 	packagesWithoutTest []string
 	success             bool
 }
 
+// NewTestJob creates a new test job by a given name.
 func NewTestJob(name string) *GoTestJob {
 	return &GoTestJob{
 		name: name,
 	}
 }
 
+// Do do an actual job.
 func (j *GoTestJob) Do() (msg string, err error) {
 	defer func() {
 		if err == nil {
@@ -64,14 +67,17 @@ func (j *GoTestJob) Do() (msg string, err error) {
 	return "", err
 }
 
+// IsFailTerminate indicates whether to terminate when job execute fails.
 func (j *GoTestJob) IsFailTerminate() bool {
 	return false
 }
 
+// Name returns the job name.
 func (j *GoTestJob) Name() string {
 	return string(j.name)
 }
 
+// Test test function.
 func Test() {
 	fmt.Println("test for test 01")
 	fmt.Println("test for test 02")

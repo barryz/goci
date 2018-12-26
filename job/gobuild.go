@@ -8,8 +8,10 @@ import (
 	"github.com/barryz/goci/util"
 )
 
+// GoBuildJob represents a job with go build.
 type GoBuildJob string
 
+// Do do an actual job.
 func (j GoBuildJob) Do() (msg string, err error) {
 	buildCmd := config.DefaultConfig.Build
 
@@ -22,10 +24,12 @@ func (j GoBuildJob) Do() (msg string, err error) {
 	return "", nil
 }
 
+// IsFailTerminate indicates whether to terminate when job execute fails.
 func (j GoBuildJob) IsFailTerminate() bool {
 	return true
 }
 
+// Name returns the job name.
 func (j GoBuildJob) Name() string {
 	return string(j)
 }
