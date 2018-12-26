@@ -20,6 +20,7 @@ var (
 	defaultExcludes = []string{"vendor"}
 )
 
+// Config a ci linter configuration object abstraction.
 type Config struct {
 	Build string `yaml:"build"`
 	Test  string `yaml:"test"`
@@ -33,10 +34,12 @@ type Config struct {
 	Skips    []string `yaml:"skips"`
 }
 
+// Lint config item for go lint command.
 type Lint struct {
 	IgnoreNoCommentError bool `yaml:"ignore_no_comment_error"`
 }
 
+// Race config item for go race command.
 type Race struct {
 	Main    string `yaml:"main"`
 	MainCMD string `yaml:"main_cmd"`
@@ -44,6 +47,7 @@ type Race struct {
 	Timeout int    `yaml:"timeout"`
 }
 
+// RealPkgs get the realistic packages.
 func (c *Config) RealPkgs() []string {
 	if c.realPkgs == nil {
 		excludes := append(c.Excludes, defaultExcludes...)
@@ -56,6 +60,7 @@ func (c *Config) RealPkgs() []string {
 	return c.realPkgs
 }
 
+// InExcludes check the path whether in excluded directive.
 func (c *Config) InExcludes(path string) bool {
 	excludes := append(c.Excludes, defaultExcludes...)
 	for _, e := range excludes {
@@ -107,6 +112,7 @@ func isHiddenDir(name string) bool {
 
 var configFields = []string{"build", "test", "dirs", "pkgs", "race", "raceok"}
 
+// IsConfigField check a field whether valid.
 func IsConfigField(f string) bool {
 	for i := 0; i < len(configFields); i++ {
 		if configFields[i] == f {
@@ -117,6 +123,7 @@ func IsConfigField(f string) bool {
 }
 
 var (
+	// DefaultConfig default config object.
 	DefaultConfig *Config
 )
 

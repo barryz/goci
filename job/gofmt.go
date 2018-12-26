@@ -9,8 +9,10 @@ import (
 	"github.com/barryz/goci/util"
 )
 
+// GoFmtJob represents a job with go fmt.
 type GoFmtJob string
 
+// Do do an actual job.
 func (j GoFmtJob) Do() (msg string, err error) {
 	pkgs := config.DefaultConfig.RealPkgs()
 	haveError := false
@@ -33,10 +35,12 @@ func (j GoFmtJob) Do() (msg string, err error) {
 	return "", nil
 }
 
+// IsFailTerminate indicates whether to terminate when job execute fails.
 func (j GoFmtJob) IsFailTerminate() bool {
 	return false
 }
 
+// Name returns the job name.
 func (j GoFmtJob) Name() string {
 	return string(j)
 }

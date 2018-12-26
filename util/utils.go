@@ -10,15 +10,18 @@ import (
 	"time"
 )
 
+// Carve carving individual field lines.
 func Carve(line string) {
 	fmt.Println("--------------------------", line, "--------------------------")
 }
 
+// CommandResp represents a response for the specified command.
 type CommandResp struct {
 	Output string
 	Err    error
 }
 
+// StartCommand starting a command.
 func StartCommand(cmds string, envs []string) (<-chan *CommandResp, *exec.Cmd, error) {
 	dirName, _ := os.Getwd()
 	fmt.Println("Current Dir:", dirName)
@@ -44,6 +47,7 @@ func StartCommand(cmds string, envs []string) (<-chan *CommandResp, *exec.Cmd, e
 	return ch, p, nil
 }
 
+// Execute do an actual execution.
 func Execute(show bool, cmd string, args ...string) (string, error) {
 	p := exec.Command(cmd, args...)
 	out, err := p.CombinedOutput()
@@ -67,6 +71,7 @@ type result struct {
 	err error
 }
 
+// ShExec do an actual shell execution.
 func ShExec(cmd string, seconds int) (string, error) {
 	p := exec.Command("sh", "-c", cmd)
 
@@ -95,11 +100,13 @@ func ShExec(cmd string, seconds int) (string, error) {
 	}
 }
 
+// StrToPerStr to per string.
 func StrToPerStr(str string, usePlus bool) string {
 	n, _ := strconv.Atoi(str)
 	return IntToPerStr(n, usePlus)
 }
 
+// IntToPerStr to per string.
 func IntToPerStr(n int, usePlus bool) string {
 	flag := 1 // plus
 	if n < 0 {

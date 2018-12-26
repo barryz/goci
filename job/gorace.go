@@ -12,8 +12,10 @@ import (
 	"github.com/barryz/goci/util"
 )
 
+// GoRaceJob represents a job with go race condition testing.
 type GoRaceJob string
 
+// Do do an actual job.
 func (j GoRaceJob) Do() (msg string, err error) {
 	race := config.DefaultConfig.Race
 	if race == nil || race.Main == "" {
@@ -97,10 +99,12 @@ func (j GoRaceJob) Do() (msg string, err error) {
 	return "", nil
 }
 
+// IsFailTerminate indicates whether to terminate when job execute fails.
 func (j GoRaceJob) IsFailTerminate() bool {
 	return false
 }
 
+// Name returns the job name.
 func (j GoRaceJob) Name() string {
 	return string(j)
 }
